@@ -28,7 +28,7 @@ namespace Zadanie_ParametryTrojkata
                     longestSide = inputNumbers[i];
                 }
 
-                if (inputNumbers[i] < 0)
+                if (inputNumbers[i] <= 0)
                 {
                     Console.WriteLine("Błędne dane. Długości boków muszą być dodatnie!");
                     return;
