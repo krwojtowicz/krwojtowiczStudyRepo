@@ -35,9 +35,7 @@ namespace Zadanie_ParametryTrojkata
                 }
                 
             }
-            Console.WriteLine(shortestSide);
-            Console.WriteLine(midSide);
-            Console.WriteLine(longestSide);
+    
             double a = inputNumbers[0];
             double b = inputNumbers[1];
             double c = inputNumbers[2];
