@@ -1,4 +1,6 @@
-﻿namespace Lab03
+﻿using System.Collections;
+
+namespace Lab03
 {
     internal class Program
     {
@@ -22,16 +24,26 @@
                 b = dane[0];
             }
             int c = dane[2];
-            int[] numsBetween = new int[b - a - 1];
-            int divideCount = 0;
-            for (int i = 0; i < numsBetween.Length; i++)
+            ArrayList dividedNums = new ArrayList();//dynamic array   
+            for (int i = 0; i < b - a - 1; i++)
             {
-                numsBetween[i] = a + i + 1;
-                Console.WriteLine(numsBetween[i]);
                 if( ((a + i + 1 ) % c) == 0)
-                    divideCount++;
+                    dividedNums.Add(a + i + 1);      
             }
-            Console.WriteLine(a + " " + b + " " + numsBetween.Length);
+            if (dividedNums.Count == 0)
+                Console.WriteLine("empty");
+            else if (dividedNums.Count > 10)
+            {
+                Console.WriteLine($"{dividedNums[0]}, {dividedNums[1]}, {dividedNums[2]}, ..., {dividedNums[dividedNums.Count - 2]}, {dividedNums[dividedNums.Count - 1]}");
+            }
+            else
+            {
+                for(int i = 0; i < dividedNums.Count - 1; i++)
+                {
+                    Console.Write($"{dividedNums[i]}, ");
+                }
+                Console.Write($"{dividedNums[dividedNums.Count - 1]}");
+            }
             
         }
         /*
