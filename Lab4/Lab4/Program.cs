@@ -4,9 +4,13 @@
     {
         static void Main(string[] args)
         {
-            int[] a = new int[] { -2, -2, -1, 0, 1, 3 ,4 ,6 };
-            int[] b = new int[] { -3, -2, -1, 1, 2, 3 };
-           
+            //int[] a = new int[] { -2, -1, 0, 1, 4 };
+            //int[] b = new int[] { -3, -2, -1, 1, 2, 3 };
+            //int[] a = new int[] { 0, 1, 1, 2, 3, 3, 3 };
+            //int[] b = new int[] { 0, 1, 2, 3, 3 };
+            int[] a = new int[] { -2, -1, 0, 1, 4 };
+            int[] b = new int[] { -2, -1, 0, 1, 4, 5, 6 };
+
             Print(a, b);
             static void Print(int[] a, int[] b)
             {
@@ -22,64 +26,74 @@
                         }
                     }
                 }
-
-                int[] result = new int[a.Length + b.Length - 2*repeatedValues];
-                int aIncrement = 0;
-                int bIncrement = 0;
-                int k = 0;
-                do
+                int resultLength = a.Length + b.Length - 2 * repeatedValues;
+                if(resultLength <= 0)
                 {
-                    //Console.WriteLine($"aI {aIncrement} a {a[aIncrement]}   bI {bIncrement} b {b[bIncrement]}");
-                    if(aIncrement == a.Length)
+                    Console.WriteLine("empty");
+                    return;
+                }
+                int[] result = new int[resultLength];
+                int k = 0;
+                int aI = 0;
+                int bI = 0;
+                while(k < resultLength)
+                {
+                    if(aI == a.Length)
                     {
-                        aIncrement = a.Length - 1;
-                        result[k] = b[bIncrement];
+                        while(bI < b.Length)
+                        {
+                            result[k] = b[bI];
+                            bI++;
+                            k++;
+                        }
+                        continue;
+                    }
+                    if (bI == b.Length)
+                    {
+                        while (aI < a.Length)
+                        {
+                            result[k] = a[aI];
+                            aI++;
+                            k++;
+                        }
+                        continue;
+                    }
+                    Console.WriteLine($"{aI } {bI}");
+                    if (a[aI] < b[bI])
+                    {
+                        result[k] = a[aI];
+                        aI++;
                         k++;
                     }
-                    if(bIncrement == b.Length)
+                    else if (a[aI] > b[bI])
                     {
-                        bIncrement = b.Length - 1;
-                        result[k] = a[aIncrement];
-                        k++;
-                    }
-
-                    if (a[aIncrement] < b[bIncrement])
-                    {
-                        result[k] = a[aIncrement];
-                        aIncrement++;
-                        k++;
-                    }
-                    else if (a[aIncrement] > b[bIncrement])
-                    {
-                        result[k] = b[bIncrement];
-                        bIncrement++;
+                        result[k] = b[bI];
+                        bI++;
                         k++;
                     }
                     else
                     {
-                        while (a[aIncrement] == b[bIncrement])
+                        while (a[aI] == b[bI])
                         {
-                            if (aIncrement == a.Length - 1)
+                            if (aI == a.Length - 1)
                                 break;
                             else
-                                aIncrement++;     
+                                aI++;
                         }
-
-                        while (b[bIncrement] == a[aIncrement - 1])
+                        while(a[aI-1] == b[bI])
                         {
-                            if (bIncrement == b.Length - 1)
+                            if (bI == b.Length - 1)
                                 break;
                             else
-                                bIncrement++;
-                            
+                                bI++;
                         }
                     }
                 }
-                while (k < result.Length);
-                for(int i =0; i < result.Length; i++)
+                foreach(int x in result) 
                 {
-                    Console.WriteLine(result[i]);
+                    Console.Write($"{x} ");
                 }
+               
             }
 
         }
