@@ -1,99 +1,94 @@
-﻿namespace Lab4
+﻿using System;
+using System.Net.Http.Headers;
+
+namespace Lab4
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            //int[] a = new int[] { -2, -1, 0, 1, 4 };
+            //int[] a = new int[] { -2, -1, 0, 1, 4, 4 };
             //int[] b = new int[] { -3, -2, -1, 1, 2, 3 };
-            //int[] a = new int[] { 0, 1, 1, 2, 3, 3, 3 };
+            //int[] a = new int[] { 0, 1, 1, 2, 3, 3, 3, 4 };
             //int[] b = new int[] { 0, 1, 2, 3, 3 };
-            int[] a = new int[] { -2, -1, 0, 1, 4 };
+            int[] a = new int[] { -2, -1, 0, 1, 4 ,7,8,9};
             int[] b = new int[] { -2, -1, 0, 1, 4, 5, 6 };
+            //int[] a = new int[] { };
+            //int[] b = new int[] { };
 
             Print(a, b);
             static void Print(int[] a, int[] b)
             {
-                int repeatedValues = 0;
-                for (int i = 0; i < a.Length; i++)
+                bool AinB = false;
+                string AnotInBstring = "";
+                foreach (int i in a)
                 {
-                    for (int j = 0; j < b.Length; j++)
+                    AinB = false;
+                    foreach (int j in b)
                     {
-                        if (a[i] == b[j])
+                        if (i == j)
                         {
-                            repeatedValues++;
+                            AinB = true;
                             break;
                         }
                     }
+                    if (!AinB)
+                    {
+                        AnotInBstring += $"{i} ";
+                        
+                    }
                 }
-                int resultLength = a.Length + b.Length - 2 * repeatedValues;
-                if(resultLength <= 0)
+
+                bool BinA = false;
+                foreach (int j in b)
                 {
+                    BinA = false;
+                    foreach (int i in a)
+                    {
+                        if (j == i)
+                        {
+                            BinA = true;
+                            break;
+                        }
+                    }
+                    if (!BinA)
+                    {
+                        AnotInBstring += $"{j} ";
+
+                    }
+                }
+                
+                if(AnotInBstring == "")
                     Console.WriteLine("empty");
-                    return;
-                }
-                int[] result = new int[resultLength];
-                int k = 0;
-                int aI = 0;
-                int bI = 0;
-                while(k < resultLength)
+                else
                 {
-                    if(aI == a.Length)
+                    int[] tab = Array.ConvertAll<string,int>(AnotInBstring.Trim().Split(" "), int.Parse);
+                   
+                    for(int i = 1; i < tab.Length; i++)
                     {
-                        while(bI < b.Length)
+                        for(int j = 0; j < i; j++)
                         {
-                            result[k] = b[bI];
-                            bI++;
-                            k++;
+                            if (tab[j] > tab[i])
+                            {
+                                int temp = tab[i];
+                                tab[i] = tab[j];
+                                tab[j] = temp;
+                            }
                         }
-                        continue;
+                        
                     }
-                    if (bI == b.Length)
+                    string wynik = $"{tab[0]} ";
+                    for(int i = 1; i < tab.Length; i++)
                     {
-                        while (aI < a.Length)
-                        {
-                            result[k] = a[aI];
-                            aI++;
-                            k++;
-                        }
-                        continue;
+                        if (tab[i] != tab[i - 1])
+                            wynik += $"{tab[i]} ";
                     }
-                    Console.WriteLine($"{aI } {bI}");
-                    if (a[aI] < b[bI])
-                    {
-                        result[k] = a[aI];
-                        aI++;
-                        k++;
-                    }
-                    else if (a[aI] > b[bI])
-                    {
-                        result[k] = b[bI];
-                        bI++;
-                        k++;
-                    }
-                    else
-                    {
-                        while (a[aI] == b[bI])
-                        {
-                            if (aI == a.Length - 1)
-                                break;
-                            else
-                                aI++;
-                        }
-                        while(a[aI-1] == b[bI])
-                        {
-                            if (bI == b.Length - 1)
-                                break;
-                            else
-                                bI++;
-                        }
-                    }
+                    Console.WriteLine(wynik);
                 }
-                foreach(int x in result) 
-                {
-                    Console.Write($"{x} ");
-                }
-               
+                
+
+
+
             }
 
         }
