@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            //wczytywanie i przetwarzanie danych
             Console.Write("Witaj użytkowniku! Obliczmy rabat na loty. W tym celu proszę wprowadź poniższe dane. \n");
             Console.Write("Podaj date urodzenia (przeszła w formacie dd.mm.yyyy): ");
             DateTime dataUrodzenia = DateTime.Parse(Console.ReadLine());
@@ -16,17 +17,56 @@
                 if (czyStalyString == "T")
                     czyStaly = true;
             }
+
             Console.Write("Podaj date lotu (przyszła w formacie dd.mm.yyyy): ");
             DateTime dataLotu = DateTime.Parse(Console.ReadLine());
             int miesiecyDoLotu = getMiesiecyDoLotu(dataLotu);
             bool czySezonowy = czyLotSezonowy(dataLotu);
+
             Console.Write("Czy lot jest krajowy (T/N): ");
             string czyKrajowyString = Console.ReadLine().Trim();
             bool czyKrajowy = false;
             if (czyKrajowyString == "T")
                 czyKrajowy = true;
+            //Główna logika
+            //sumujemy rabaty a na końcu sprawdzamy czy nie za dużo
+            int rabat = 0;
+            
+            if(wiek < 2)
+            {
+                if (czyKrajowy)
+                    rabat += 80;
+                else
+                    rabat += 70;
+            }
+            else if(wiek >= 2 && wiek <= 16)
+                    rabat += 10;
 
+            if (miesiecyDoLotu >= 5)
+                rabat += 10;
+            if (!czyKrajowy && !czySezonowy)
+                rabat += 15;
+            if (czyStaly)
+                rabat += 15;
+            if (!czyKrajowy)
+            {
+                if(wiek < 2 || !czySezonowy){ }//jeżeli niemowle lub poza sezonem to rabat jest inaczej zerujemy dla międzynarodowych
+                else
+                    rabat = 0;
+            }
 
+            if (wiek < 2)
+            {
+                if (rabat > 80)
+                    rabat = 80;
+            }
+            else
+            {
+                if (rabat > 30)
+                    rabat = 30;
+            }
+            Console.WriteLine($"wiek:{wiek} czyKrajowy:{czyKrajowy} miesiecy do Lotu {miesiecyDoLotu} czy sezonowy: {czySezonowy}");
+            Console.WriteLine($"Twój rabat to: {rabat}% !!!");
 
         }
         public static int getWiek(DateTime data)
