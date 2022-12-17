@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            //wczytywanie i przetwarzanie danych
+            //wczytywanie i przetwarzanie danych od użytkownika
             Console.Write("Witaj użytkowniku! Obliczmy rabat na loty. W tym celu proszę wprowadź poniższe dane. \n");
             Console.Write("Podaj date urodzenia (przeszła w formacie dd.mm.yyyy): ");
             DateTime dataUrodzenia = DateTime.Parse(Console.ReadLine());
@@ -65,7 +65,7 @@
                 if (rabat > 30)
                     rabat = 30;
             }
-            Console.WriteLine($"wiek:{wiek} czyKrajowy:{czyKrajowy} miesiecy do Lotu {miesiecyDoLotu} czy sezonowy: {czySezonowy}");
+            
             Console.WriteLine($"Twój rabat to: {rabat}% !!!");
 
         }
