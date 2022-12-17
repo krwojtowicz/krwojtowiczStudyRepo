@@ -1,12 +1,44 @@
-﻿namespace Tablice2D
+﻿using System.Collections.Generic;
+namespace Tablice2D
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Zad2();
+            Zad3();
         }
+        static void Zad3()
+        {
+            List<int[]> list = new List<int[]>();
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input)) break;
+                int[] inputLine = Array.ConvertAll<string, int>(input.Trim().Split(), int.Parse);
+                list.Add(inputLine);
+            }
+            //cała logika polega na tym że do pierwszego wierwsza 2D arraya (pierwszego arraya w liście), dodaje pozostałe.
+            for(int i = 1; i < list.Count; i++)
+            {
+                for(int j = 0; j < list[i].Length; j++)
+                {
+                    list[0][j] += list[i][j]; 
+                }
+            }
+            //szukam maksymalnej sumy i jej indeksu
+            int maxIndex = 0;
+            int maxSuma = list[0][0];
+            for(int i=1; i < list[0].Length; i++)
+            {
+                if(list[0][i] > maxSuma)
+                {
+                    maxIndex = i;
+                    maxSuma = list[0][i];
+                }
+            }
+            Console.WriteLine(maxIndex);
 
+        }
         static void Zad2()
         {
             int[] input = Array.ConvertAll<string, int>(Console.ReadLine().Trim().Split(), int.Parse);
@@ -54,10 +86,12 @@
                         for (int k = 0; k < n2; k++)
                         {
                             wynik += (A[i, k] * B[k, j]);
+                            
                         }
                         iloczynAB[i, j] = wynik;
-                        Console.WriteLine(iloczynAB[i, j]);
+                        Console.Write($"{iloczynAB[i, j]} ");
                     }
+                    Console.WriteLine();
                 }
             }
 
