@@ -4,7 +4,12 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Pudelko pudelko = new Pudelko(0);
+
+            Console.WriteLine(pudelko.ToString());
+            Console.WriteLine(pudelko.ToString("cm"));
+            Console.WriteLine(pudelko.ToString("mm"));
+
         }
     }
 }

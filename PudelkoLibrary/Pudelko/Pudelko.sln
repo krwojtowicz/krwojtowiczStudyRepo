@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PudelkoLib", "PudelkoLib.cs
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9BDE7FD2-1B16-4933-BDD2-54CA176A9D36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PudelkoTest", "..\PudelkoTest\PudelkoTest.csproj", "{AF7292A0-DB4D-40DF-ADE7-E1FFB473FE4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PudelkoTest", "..\PudelkoTest\PudelkoTest.csproj", "{AF7292A0-DB4D-40DF-ADE7-E1FFB473FE4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
