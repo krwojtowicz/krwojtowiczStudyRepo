@@ -1,0 +1,134 @@
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Transactions;
+
+namespace Time
+{
+    public struct Time : IEquatable<Time>, IComparable<Time>
+    {
+        private readonly byte _hours;
+        private readonly byte _minutes;
+        private readonly byte _seconds;
+        public byte Hours { get { return _hours; } }
+        public byte Minutes { get { return _minutes; } }
+        public byte Seconds { get { return _seconds; } }
+
+        public Time(byte hour = 0, byte minute = 0, byte second = 0)
+        {
+            if (hour < 0 || hour > 23)
+                throw new ArgumentOutOfRangeException("Wrong hours, vlaue not in 0-23 range");
+            else
+                _hours = hour;
+
+            if (minute < 0 || minute > 59)
+                throw new ArgumentOutOfRangeException("Wrong minutes, value not in 0-59");
+            else
+                _minutes = hour;
+
+            if (second < 0 || second > 59)
+                throw new ArgumentOutOfRangeException("Wrong seconds, value not in 0-59");
+            else
+                _seconds = second;
+        }
+
+        public Time(string time)
+        {
+            if (time == "" || time == null)
+                throw new ArgumentNullException("Given time cannot be null");
+
+            string[] timeArr = time.Split(':');
+
+            if (timeArr.Length != 3)
+                throw new ArgumentException("Given wrong format (expected hh:mm:ss)");
+
+            byte hour = byte.Parse(timeArr[0]);
+            byte minute = byte.Parse(timeArr[1]);
+            byte second = byte.Parse(timeArr[2]);
+
+            if (hour < 0 || hour > 23)
+                throw new ArgumentOutOfRangeException("Wrong hours, vlaue not in 0-23 range");
+            else
+                _hours = hour;
+
+            if (minute < 0 || minute > 59)
+                throw new ArgumentOutOfRangeException("Wrong minutes, value not in 0-59");
+            else
+                _minutes = hour;
+
+            if (second < 0 || second > 59)
+                throw new ArgumentOutOfRangeException("Wrong seconds, value not in 0-59");
+            else
+                _seconds = second;
+        }
+
+        public override string ToString()
+        {
+            return $"{_hours}:{_minutes}:{_seconds}";
+        }
+
+        public bool Equals(Time other)
+        {
+            if (Object.ReferenceEquals(this, other)) return true;
+
+            if (this.Hours == other.Hours && this.Minutes == other.Minutes && this.Seconds == other.Seconds)
+                return true;
+            else
+                return false;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj);
+        }
+
+        public static bool Equals(Time time1, Time time2)
+        {
+            return time1.Equals(time2);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Hours, Minutes, Seconds).GetHashCode();
+        }
+
+        public int CompareTo(Time other)
+        {
+            int t1 = this.Hours * 24 + this.Minutes * 60 + this.Seconds * 60;
+
+            int t2 = other.Hours * 24 + other.Minutes * 60 + other.Seconds * 60;
+
+            return t1.CompareTo(t2);
+        }
+
+        public static bool operator ==(Time t1, Time t2)
+        {
+            return t1.Equals(t2);
+        }
+        public static bool operator !=(Time t1, Time t2)
+        {
+            return !t1.Equals(t2);
+        }
+
+        public static bool operator <(Time t1, Time t2)
+        {
+            return t1.CompareTo(t2) < 0;
+        }
+        public static bool operator >(Time t1, Time t2)
+        {
+            return t1.CompareTo(t2) > 0;
+        }
+        public static bool operator <=(Time t1, Time t2)
+        {
+            return t1.CompareTo(t2) <= 0;
+        }
+        public static bool operator >=(Time t1, Time t2)
+        {
+            return t1.CompareTo(t2) >= 0;
+        }
+
+        public static bool operator +()
+
+        public Time Plus(TimePeriod )
+    }
+
+}
