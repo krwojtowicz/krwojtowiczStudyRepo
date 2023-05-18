@@ -126,9 +126,7 @@ namespace Time
             return t1.CompareTo(t2) >= 0;
         }
 
-        public static bool operator +()
-
-        public Time Plus(TimePeriod )
+       
     }
 
 }

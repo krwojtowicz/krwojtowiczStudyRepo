@@ -1,5 +1,3 @@
-using Time;
-
 namespace UnitTests
 {
     [TestClass]
