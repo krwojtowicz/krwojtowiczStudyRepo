@@ -13,6 +13,12 @@ namespace Time
         public byte Minutes { get { return _minutes; } }
         public byte Seconds { get { return _seconds; } }
 
+        /// <summary>
+        /// reprezentuje czas (godzina minuta i sekunda) złożony z parametrów typu byte
+        /// </summary>
+        /// <param name="hour"> zakres parametru 0-23</param>
+        /// <param name="minute">zakres parametru 0-59</param>
+        /// <param name="second">zakres parametru 0-59</param>
         public Time(byte hour = 0, byte minute = 0, byte second = 0)
         {
             if (hour < 0 || hour > 23)
@@ -31,6 +37,10 @@ namespace Time
                 _seconds = second;
         }
 
+        /// <summary>
+        /// Tworzy nowy element typu Time z podanego stringa
+        /// </summary>
+        /// <param name="time">format: "hh:mm:ss"</param>
         public Time(string time)
         {
             if (time == "" || time == null)
@@ -61,11 +71,20 @@ namespace Time
                 _seconds = second;
         }
 
+        /// <summary>
+        /// reprezentuje strukturę Time w postaci string 
+        /// </summary>
+        /// <returns>hh:mm:ss</returns>
         public override string ToString()
         {
             return $"{_hours}:{_minutes}:{_seconds}";
         }
 
+        /// <summary>
+        /// Metoda equals porównująca ze sobą dwa obiekty typu time
+        /// </summary>
+        ///  /// <param name="other"> obiekt typu time z którym chcemy porównać obecny obiekt</param>
+        /// <returns>true jeżeli obiekty są sobie równe oraz false jeżeli nie są sobie równe</returns>
         public bool Equals(Time other)
         {
             if (Object.ReferenceEquals(this, other)) return true;
@@ -93,11 +112,20 @@ namespace Time
 
         public int CompareTo(Time other)
         {
-            int t1 = this.Hours * 24 + this.Minutes * 60 + this.Seconds * 60;
+            int t1 = this.Hours * 3600 + this.Minutes * 60 + this.Seconds ;
 
-            int t2 = other.Hours * 24 + other.Minutes * 60 + other.Seconds * 60;
+            int t2 = other.Hours * 3600 + other.Minutes * 60 + other.Seconds ;
 
             return t1.CompareTo(t2);
+        }
+
+        public Time Plus(TimePeriod other)
+        {
+            long second = this.Hours * 3600 + this.Minutes * 60 + this.Seconds + other.Seconds;
+            byte hours = Convert.ToByte(second / 3600);
+            byte minutes = Convert.ToByte((second - hours * 3600) / 60);
+            byte seconds = Convert.ToByte(second - hours * 3600 - minutes * 60);
+            return new Time(hours, minutes, seconds);
         }
 
         public static bool operator ==(Time t1, Time t2)
@@ -125,6 +153,7 @@ namespace Time
         {
             return t1.CompareTo(t2) >= 0;
         }
+       
 
        
     }
