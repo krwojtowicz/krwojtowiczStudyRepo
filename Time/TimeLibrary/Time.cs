@@ -95,10 +95,11 @@ namespace Time
                 return false;
         }
 
-        //public override bool Equals(object obj)
-        //{
-        //    return this.Equals(obj);
-        //}
+        public override bool Equals(object obj)
+        {
+            if(obj is Time) return Equals((Time)obj);
+            else return false;
+        }
 
         public static bool Equals(Time time1, Time time2)
         {
@@ -122,6 +123,7 @@ namespace Time
         public Time Plus(TimePeriod other)
         {
             long second = this.Hours * 3600 + this.Minutes * 60 + this.Seconds + other.Seconds;
+            if (second >= 86400) second = second - 86400;
             byte hours = Convert.ToByte(second / 3600);
             byte minutes = Convert.ToByte((second - hours * 3600) / 60);
             byte seconds = Convert.ToByte(second - hours * 3600 - minutes * 60);
