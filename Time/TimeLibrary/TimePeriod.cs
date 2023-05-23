@@ -86,10 +86,10 @@ namespace Time
                 return false;
         }
 
-        public override bool Equals(object obj)
-        {
-            return this.Equals(obj);
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    return this.Equals(obj);
+        //}
 
         public static bool Equals(TimePeriod t1, TimePeriod t2)
         {
